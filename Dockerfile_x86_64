@@ -12,7 +12,7 @@ RUN set -xe \
     && adduser -u ${PUID} -G alpine -h /var/lib/coturn -D alpine \
     && apk add --no-cache --purge -uU \
         --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-        coturn \
+        coturn sqlite-libs \
     && rm -rf /var/cache/apk/* /tmp/*
 #
 COPY root/ /
