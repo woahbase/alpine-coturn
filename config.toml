@@ -1,0 +1,3 @@
+[registry."YOUR.PRIVATE.REGISTRY"]
+  # http = true
+  insecure = true

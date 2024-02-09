@@ -1,0 +1,16 @@
+#!/usr/bin/with-contenv bash
+set -e
+
+mkdir -p /var/lib/coturn;
+
+# ensure turnserver conf exists
+if [ ! -f /var/lib/coturn/turnserver.conf ];
+then
+    cp /defaults/turnserver.conf /var/lib/coturn/turnserver.conf;
+fi;
+
+# fix perms
+chown ${S6_USER:-alpine} \
+    /var/lib/coturn \
+    /var/lib/coturn/turnserver.conf \
+    ;

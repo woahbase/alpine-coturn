@@ -42,7 +42,7 @@ docker pull woahbase/alpine-coturn:x86_64
 
 * Data stored at `/var/lib/coturn`.
 
-* Default configuration listens to ports `3478` and `3480`(TLS),
+* Default configuration listens to ports `3478` and `5349`(TLS),
   for the latter, you need to update the location where your certs
   are in the config file.
 
@@ -76,8 +76,8 @@ docker run --rm -it \
   --name docker_coturn --hostname coturn \
   -c 256 -m 256m \
   -e PGID=1000 -e PUID=1000 \
-  -p 3480:3480/udp -p 3478:3478/udp \
-  -p 3480:3480/tcp -p 3478:3478/tcp \
+  -p 5349:5349/udp -p 3478:3478/udp \
+  -p 5349:5349/tcp -p 3478:3478/tcp \
   -v /etc/hosts:/etc/hosts:ro \
   -v /etc/localtime:/etc/localtime:ro \
   -v data:/var/lib/coturn \

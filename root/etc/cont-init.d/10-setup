@@ -1,9 +1,0 @@
-#!/usr/bin/with-contenv bash
-
-[[ -f /var/lib/coturn/turnserver.conf ]] \
-    && echo 'Found existing configuration' \
-    || (
-        echo 'Copying default configuration'; \
-        s6-setuidgid alpine cp /defaults/turnserver.conf /var/lib/coturn/turnserver.conf
-    )
-
