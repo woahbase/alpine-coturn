@@ -1,16 +1,28 @@
 #!/usr/bin/with-contenv bash
 set -e
 
-mkdir -p /var/lib/coturn;
+vecho () { if [ "${S6_VERBOSITY:-1}" -gt 0 ]; then echo "[$0] $@"; fi; }
+
+COTURN_CONF="${COTURN_CONF:-/var/lib/coturn/turnserver.conf}";
+COTURN_DATADIR="${COTURN_DATADIR:-/var/lib/coturn}";
+
+vecho "Ensure configuration directories exist.";
+mkdir -p \
+    $(dirname ${COTURN_CONF}) \
+    ${COTURN_DATADIR} \
+    ;
 
 # ensure turnserver conf exists
-if [ ! -f /var/lib/coturn/turnserver.conf ];
+if [ ! -f "${COTURN_CONF}" ];
 then
-    cp /defaults/turnserver.conf /var/lib/coturn/turnserver.conf;
+    vecho "Setting up default configuration as ${COTURN_CONF}.";
+    cp /defaults/turnserver.conf ${COTURN_CONF};
 fi;
 
-# fix perms
+# fix permissions
+vecho "Fixing permissions.";
 chown ${S6_USER:-alpine} \
-    /var/lib/coturn \
-    /var/lib/coturn/turnserver.conf \
+    ${COTURN_DATADIR} \
+    ${COTURN_CONF} \
+    $(dirname ${COTURN_CONF}) \
     ;

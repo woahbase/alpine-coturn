@@ -1,9 +1,12 @@
 #!/usr/bin/with-contenv bash
 set -e
 
+COTURN_CONF="${COTURN_CONF:-/var/lib/coturn/turnserver.conf}";
 COTURN_ARGS="${COTURN_ARGS:- -v}";
 
-s6-setuidgid ${S6_USER:-alpine} exec \
+s6-setuidgid ${S6_USER:-alpine} \
+exec \
     turnserver \
-    -c /var/lib/coturn/turnserver.conf \
-    ${COTURN_ARGS}
+    -c ${COTURN_CONF} \
+    ${COTURN_ARGS} \
+    ;
