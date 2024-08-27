@@ -14,7 +14,7 @@
 [![dh_size:armv7l][209]][159]
 [![dh_size:x86_64][207]][157]
 
-MultiArch Base Image for Alpine Linux, with QEMU binfmt support.
+MultiArch Alpine Linux + S6 + Coturn STUN/TURN Gateway for VoIP.
 
 [Docs][112] | [Images][155] | [Sources][151]
 
