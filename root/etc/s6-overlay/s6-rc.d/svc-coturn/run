@@ -1,10 +1,15 @@
 #!/usr/bin/with-contenv bash
 set -e
 
-COTURN_CONF="${COTURN_CONF:-/var/lib/coturn/turnserver.conf}";
-COTURN_ARGS="${COTURN_ARGS:- -v}";
+usercmd () { if [ "X${EUID}" != "X0" ]; then ${1} "${@:2}"; else s6-setuidgid ${PUID:-1000}:${PGID:-1000} ${1} "${@:2}"; fi; }
 
-s6-setuidgid ${S6_USER:-alpine} \
+COTURN_DATADIR="${COTURN_DATADIR:-/var/lib/coturn}";
+COTURN_CONF="${COTURN_CONF:-$COTURN_DATADIR/turnserver.conf}";
+# COTURN_ARGS="${COTURN_ARGS:- -v}";
+
+cd ${COTURN_DATADIR} || exit 1;
+
+usercmd \
 exec \
     turnserver \
     -c ${COTURN_CONF} \

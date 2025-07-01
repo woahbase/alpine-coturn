@@ -6,9 +6,17 @@ FROM ${IMAGEBASE}
 #
 RUN set -xe \
     && apk add --no-cache --purge -uU \
-        libcap \
-        coturn \
+        # bind-tools \
+        hiredis \
+        libcrypto3 \
+        libmicrohttpd \
+        libpq \
+        libssl3 \
+        mariadb-connector-c \
+        # mongo-c-driver \
         sqlite-libs \
+        coturn \
+        libcap \
     && setcap CAP_NET_BIND_SERVICE=+ep /usr/bin/turnserver \
     && apk del --purge libcap \
     && rm -rf /var/cache/apk/* /tmp/*
